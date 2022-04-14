@@ -5,7 +5,8 @@ from .views import (
     logout_user_view,
     home_view,
     premium_view,
-    PremiumView
+    PremiumView,
+    send_email_view
 )
 
 
@@ -17,5 +18,6 @@ urlpatterns = [
     path('logout/', logout_user_view, name='logout'),
     path('', home_view, name='home'),
     path('premium/', PremiumView.as_view(), name='premium'),
+    path('send/', send_email_view, name='send-email')
     # path('premium/', premium_view, name='premium')
 ]

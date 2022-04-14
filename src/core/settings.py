@@ -120,3 +120,14 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 LOGIN_URL = 'demo:login'
+
+# Sendgrid settings
+SEND_GRID_API_KEY = ''
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = ''
+ACCOUNT_EMAIL_SUBJECT_PREFIX = ''
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

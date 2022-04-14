@@ -6,6 +6,7 @@ from django.views import View
 from django.contrib import messages
 
 from .forms import UserRegisterForm, UserLoginForm
+from .helpers import send_email
 
 
 def register_user_view(request):
@@ -73,3 +74,11 @@ class PremiumView(LoginRequiredMixin, View):
     def get(self, *args, **kwargs):
         return render(self.request, 'premium.html')
 
+
+def send_email_view(request):
+    subject = 'This is a test email'
+    to = 'receiver@example.com'
+    message = 'lore ipsum quo du.'
+    full_name = 'A User'
+    send_email(subject, to, message, full_name)
+    return redirect('/')
