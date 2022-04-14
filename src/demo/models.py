@@ -1,15 +1,23 @@
 from django.db import models
 
 
-class PostManager(models.Manager):
-    def get_queryset(self):
-        return super().get_queryset()
-
+class PostQuerySet(models.QuerySet):
     def valid(self):
-        return self.get_queryset().filter(valid=True)
+        return self.filter(valid=True)
 
     def in_valid(self):
-        return self.get_queryset().filter(valid=False)
+        return self.filter(valid=False)
+
+
+class PostManager(models.Manager):
+    def get_queryset(self):
+        return PostQuerySet(model=self.model, using=self._db)
+
+    def valid(self):
+        return self.get_queryset().valid()
+
+    def in_valid(self):
+        return self.get_queryset().in_valid()
 
 
 class Post(models.Model):
