@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models.signals import post_save, post_delete
+from django.dispatch import receiver
 
 
 class PostQuerySet(models.QuerySet):
@@ -29,3 +31,14 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+
+def post_model_post_save_receiver(sender, *args, **kwargs):
+    print('This is the post save message.')
+
+
+post_save.connect(post_model_post_save_receiver, sender=Post)
+
+
+@receiver(post_delete)
+def post_model_post_delete_receiver(sender, *args, **kwargs):
+    print('This is the post delete message.')
