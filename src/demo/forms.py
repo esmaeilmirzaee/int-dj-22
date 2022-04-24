@@ -8,11 +8,23 @@ User = get_user_model()
 
 
 class UserRegisterForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput)
+    confirm_password = forms.CharField(widget=forms.PasswordInput)
+
     class Meta:
         model = User
         fields = (
-            'username', 'email', 'password'
+            'username', 'email', 'password', 'confirm_password'
         )
+
+    def clean(self):
+        password = self.cleaned_data.get('password')
+        confirm_password = self.cleaned_data.get('confirm_password')
+
+        if password != confirm_password:
+            raise forms.ValidationError('The passwords do not match.')
+
+        return super(UserRegisterForm, self).clean()
 
 
 class UserLoginForm(forms.Form):
@@ -25,7 +37,6 @@ class UserLoginForm(forms.Form):
 
         if username and password:
             user = authenticate(username=username, password=password)
-            print(user, password, user.check_password(password))
 
             if not user:
                 raise forms.ValidationError('This user doesn\'t exist.')
