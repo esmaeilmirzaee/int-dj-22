@@ -1,17 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Home</title>
-</head>
-<body>
-    {% if messages %}
-        <ul>
-            {% for msg in messages %}
-                <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ msg }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-    <h1>Welcomehome.html</h1>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Welcome</h1>
+{% endblock content %}

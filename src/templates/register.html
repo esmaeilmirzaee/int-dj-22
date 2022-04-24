@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block content %}
 <div class="">
     {{ form.errors }}
 </div>
@@ -28,6 +23,4 @@
         {{ form.confirm_password }}
     </div>
     <button type="submit" class="btn btn-primary">Sign up</button>
-</form>
-</body>
-</html>
+{% endblock content %}
