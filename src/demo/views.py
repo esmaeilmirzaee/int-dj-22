@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
+from django.contrib import messages
 
 from .forms import UserRegisterForm, UserLoginForm
 
@@ -19,6 +20,7 @@ def register_user_view(request):
             user.save()
             auth_user = authenticate(username=user.username, password=password)
             login(request, auth_user)
+            messages.info(request, 'Successfully registered.')
             if next_url:
                 return redirect(next_url)
             return redirect('/')
@@ -37,6 +39,7 @@ def login_user_view(request):
             password = form.cleaned_data['password']
             auth_user = authenticate(username=username, password=password)
             login(request, auth_user)
+            messages.info(request, 'Successfully logged in.')
             if next_url:
                 return redirect(next_url)
             return redirect('/')
@@ -50,6 +53,7 @@ def login_user_view(request):
 
 def logout_user_view(request):
     logout(request)
+    messages.info(request, 'Successfully logged out.')
     return redirect('/')
 
 
