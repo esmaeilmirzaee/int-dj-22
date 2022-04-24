@@ -13,3 +13,8 @@ class UserRegisterForm(forms.ModelForm):
         fields = (
             'username', 'email', 'password'
         )
+
+
+class UserLoginForm(forms.Form):
+    username = forms.CharField()
+    password = forms.CharField()
