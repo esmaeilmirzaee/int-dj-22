@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views import View
 
 from .forms import UserRegisterForm, UserLoginForm
 
@@ -30,7 +32,6 @@ def login_user_view(request):
     next_url = request.GET.get('next')
     form = UserLoginForm(request.POST or None)
     if request.method == "POST":
-        print('login')
         if form.is_valid():
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
@@ -61,3 +62,10 @@ def premium_view(request):
     # if not request.user.is_authenticated:
     #     return redirect('demo:login')
     return render(request, 'premium.html')
+
+
+# Reimplementation to see CBV
+class PremiumView(LoginRequiredMixin, View):
+    def get(self, *args, **kwargs):
+        return render(self.request, 'premium.html')
+
